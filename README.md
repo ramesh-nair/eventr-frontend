@@ -1,1 +1,1 @@
-# eventr-frontend
+# eventr
