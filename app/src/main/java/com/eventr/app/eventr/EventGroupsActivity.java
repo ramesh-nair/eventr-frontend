@@ -71,8 +71,8 @@ public class EventGroupsActivity extends AppCompatActivity {
     private CustomDialogFragment newGroupDialog;
     private EventAllGroupsRecyclerAdapter recyclerAdapter;
 
-    private static final String EVENT_GROUPS_URL = "http://52.26.148.176/api/v1/event-groups?fb_event_id=";
-    private static final String CREATE_GROUP_URL = "http://52.26.148.176/api/v1/groups";
+    private static final String EVENT_GROUPS_URL = Utils.LIVE_URL +"/event-groups?fb_event_id=";
+    private static final String CREATE_GROUP_URL = Utils.LIVE_URL +"/groups";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

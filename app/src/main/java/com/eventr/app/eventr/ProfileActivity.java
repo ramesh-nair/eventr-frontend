@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.eventr.app.eventr.utils.Utils;
 
 import org.json.JSONObject;
 import org.w3c.dom.Text;
@@ -34,7 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
     private String name, email, picUrl;
     private int credits, eventsAttended;
     private JSONObject userData;
-    private static final String USER_DATA_URL = "http://52.26.148.176/api/v1/user-profile";
+    private static final String USER_DATA_URL = Utils.LIVE_URL +"user-profile";
     private String accessToken;
     private ImageLoader imageLoader;
 

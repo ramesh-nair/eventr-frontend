@@ -68,7 +68,7 @@ public class LoginActivity extends FragmentActivity {
 
     private void manageFacebookLogin() {
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email , rsvp_event , user_events");
+        loginButton.setReadPermissions("email ,  user_events");
         callbackManager = CallbackManager.Factory.create();
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override

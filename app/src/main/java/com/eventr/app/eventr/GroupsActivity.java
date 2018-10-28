@@ -57,7 +57,7 @@ public class GroupsActivity extends AppCompatActivity {
     private ArrayList<EventGroup> userGroups = new ArrayList<EventGroup>();
     private GroupsRecyclerAdapter adapter;
 
-    private static final String USER_GROUPS_URL = "http://52.26.148.176/api/v1/user-groups";
+    private static final String USER_GROUPS_URL = Utils.LIVE_URL +"user-groups";
     private String accessToken;
     private SharedPreferences userPreferences;
     private boolean firstSuccessfulApiCall = false;

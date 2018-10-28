@@ -31,8 +31,8 @@ public class EventrUserManager {
     private String tempAccessToken;
     private SharedPreferences userPreferences;
     private Context context;
-    private static final String LOGIN_URL = "http://52.26.148.176/api/v1/login";
-    private static final String USER_DATA_URL = "http://52.26.148.176/api/v1/user-profile";
+    private static final String LOGIN_URL = "login";
+    private static final String USER_DATA_URL = Utils.LIVE_URL + "user-profile";
     private JSONObject userData;
 
     private ConnectivityManager cm;
@@ -58,6 +58,7 @@ public class EventrUserManager {
     }
 
     public void loginCall() {
+        saveAccessToken(null);
         ((LoginActivity) context).hideFBButton();
         JSONObject requestObject = new JSONObject();
 
@@ -100,7 +101,7 @@ public class EventrUserManager {
 
         try {
             requestObject.put("fb_access_token", tempAccessToken);
-            JsonObjectRequest request = new CustomJsonRequest(Request.Method.POST, LOGIN_URL, requestObject, listener, errorListener, accessToken);
+            JsonObjectRequest request = new CustomJsonRequest(Request.Method.POST, Utils.LIVE_URL+LOGIN_URL, requestObject, listener, errorListener, accessToken);
             request.setTag(REQUEST_TAG);
             EventrRequestQueue.getInstance().add(request);
         } catch (JSONException e) {

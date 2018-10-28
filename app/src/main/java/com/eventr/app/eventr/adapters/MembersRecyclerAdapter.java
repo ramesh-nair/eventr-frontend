@@ -112,10 +112,10 @@ public class MembersRecyclerAdapter extends RecyclerView.Adapter<MembersRecycler
 
         private static final String ROLE_ADMIN = "admin";
         private static final String ROLE_OWNER = "owner";
-        private static final String CREATE_ADMIN_URL = "http://52.26.148.176/api/v1/make-admin/";
-        private static final String MARK_ATTENDANCE_URL = "http://52.26.148.176/api/v1/mark-attendance/";
+        private static final String CREATE_ADMIN_URL = Utils.LIVE_URL +"make-admin/";
+        private static final String MARK_ATTENDANCE_URL = Utils.LIVE_URL +"mark-attendance/";
         private static final String REQUEST_TAG = "group_detail_actions";
-        private static final String REQUEST_ACTION_URL = "http://52.26.148.176/api/v1/confirm-member/";
+        private static final String REQUEST_ACTION_URL = Utils.LIVE_URL +"confirm-member/";
         private boolean showAttendanceStatus = false;
 
         ViewHolder(View v) {

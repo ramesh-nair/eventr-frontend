@@ -46,8 +46,8 @@ import butterknife.ButterKnife;
  */
 public class EventViewPagerFragment extends Fragment {
     private static final String TAB_POSITION = "tab_position";
-    private static final String EVENTS_URL = "http://52.26.148.176/api/v1/events?rsvp_state=";
-    private static final String NEARBY_URL = "http://52.26.148.176/api/v1/nearby-events?";
+    private static final String EVENTS_URL = Utils.LIVE_URL +"/events?rsvp_state=";
+    private static final String NEARBY_URL = Utils.LIVE_URL +"/nearby-events?";
     private CharSequence[] rsvpStates = {"nearby", "attending", "maybe"};
     private EventListRecyclerAdapter listAdapter;
     private SharedPreferences userPreferences;

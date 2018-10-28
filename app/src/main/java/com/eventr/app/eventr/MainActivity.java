@@ -1,29 +1,28 @@
 package com.eventr.app.eventr;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
-import android.content.pm.PackageItemInfo;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.eventr.app.eventr.adapters.EventViewPagerFragmentAdapter;
-import com.eventr.app.eventr.utils.LocationHelper;
 import com.eventr.app.eventr.utils.Utils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -36,7 +35,6 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
-import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 
 import butterknife.BindView;
@@ -46,9 +44,12 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
     private static final String REQUEST_TAG = "main_activity";
 
-    @BindView(R.id.drawer_layout_main) public DrawerLayout mDrawerLayout;
-    @BindView(R.id.navigation_view_main) public NavigationView navView;
-    @BindView(R.id.toolbar_main) public Toolbar toolbar;
+    @BindView(R.id.drawer_layout_main)
+    public DrawerLayout mDrawerLayout;
+    @BindView(R.id.navigation_view_main)
+    public NavigationView navView;
+    @BindView(R.id.toolbar_main)
+    public Toolbar toolbar;
 
     private final int PERMISSION_REQUEST_CODE_LOCATION = 1;
     private GoogleApiClient mGoogleApiClient;
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         } else {
             Utils.askLocationPermission(this);
         }
+
     }
 
     private void setToolbar() {
@@ -92,6 +94,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         actionBar.setDisplayHomeAsUpEnabled(true);
         new Navigation(getApplicationContext(), navView, mDrawerLayout);
     }
+
+
 
     public void setTabs() {
         EventViewPagerFragmentAdapter adapter = new EventViewPagerFragmentAdapter(getSupportFragmentManager());
@@ -137,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch(requestCode) {
+        switch (requestCode) {
             case PERMISSION_REQUEST_CODE_LOCATION: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     setupGoogleApiClient();
@@ -230,6 +234,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     private void sendLocationRequest() {
         try {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         } catch (Exception e) {
             e.printStackTrace();

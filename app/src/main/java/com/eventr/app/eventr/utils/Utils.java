@@ -29,6 +29,7 @@ import java.util.Date;
  * Created by Suraj on 29/08/16.
  */
 public class Utils {
+    public static final String LIVE_URL = "http://18.207.197.240/api/v1/";
     private static int PERMISSION_REQUEST_CODE_LOCATION = 1;
     public static boolean isInternetConnected(Context context) {
         return isNetworkAvailable(context);

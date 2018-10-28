@@ -63,8 +63,8 @@ public class GroupDetailActivity extends AppCompatActivity {
     private boolean canMarkAttendance, canMakeAdmin, canAcceptJoinRequest, canJoinGroup, isJoinRequestSent, isJoinRequestRejected, showJoinView, isJoinRequestApproved;
     private  boolean showFloatingButton, showJoinGroupView, showRequestRejected, showRequestSent, showRequestAccepted, showAdminText, showMarkAttendanceText, showEventOverNotJoinedText, showAttendedText, showNotAttendedText, showAttendancePendingText;
 
-    private static final String MEMBERS_URL = "http://52.26.148.176/api/v1/group-members/";
-    private static final String JOIN_GROUP_URL = "http://52.26.148.176/api/v1/join-group/";
+    private static final String MEMBERS_URL = Utils.LIVE_URL +"/group-members/";
+    private static final String JOIN_GROUP_URL = Utils.LIVE_URL +"/join-group/";
     private static final String REQUEST_TAG = "group_detail_activity";
     private static final String DIALOG_TYPE = "confirm";
 

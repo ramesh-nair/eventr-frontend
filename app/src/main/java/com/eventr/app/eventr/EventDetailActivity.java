@@ -45,8 +45,8 @@ import butterknife.ButterKnife;
  * Created by Suraj on 23/08/16.
  */
 public class EventDetailActivity extends AppCompatActivity {
-    private static final String EVENT_DETAIL_URL = "http://52.26.148.176/api/v1/events/";
-    private static final String RSVP_STATUS_URL = "http://52.26.148.176/api/v1/rsvp-event";
+    private static final String EVENT_DETAIL_URL = Utils.LIVE_URL +"events/";
+    private static final String RSVP_STATUS_URL = Utils.LIVE_URL +"rsvp-event";
 
     private static final String REQUEST_TAG = "event_detail_activity";
 
