@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -298,11 +299,20 @@ public class EventDetailActivity extends AppCompatActivity {
         EventrRequestQueue.getInstance().cancel(REQUEST_TAG);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private class GetEvent extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
-            PagedResponse<Events> page = null;
             try {
                 com.ticketmaster.api.discovery.response.Response<com.ticketmaster.discovery.model.Event> ev = EventrRequestQueue.getInstance().getApi().getEvent(new ByIdOperation().id(eventDetail.getId()));
                 return  ev.getJsonPayload();
@@ -314,7 +324,6 @@ public class EventDetailActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            Log.v("TTTTT", result);
             hideProgressBar();
             try {
                 eventDetail.setDetails(new JSONObject(result), rsvpStatus, false);
@@ -323,5 +332,6 @@ public class EventDetailActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+
     }
 }

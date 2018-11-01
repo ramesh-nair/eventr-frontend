@@ -89,9 +89,9 @@ public class Event implements Serializable {
             JSONObject promoter = null;
             try {
                 promoter = event.getJSONObject("promoter");
-                if(promoter.has("description")) {
+                if(promoter.has("name")) {
                     try {
-                        this.description = event.getJSONObject("promoter").getString("description");
+                        this.description = promoter.getString("name");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

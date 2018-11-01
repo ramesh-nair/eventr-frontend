@@ -27,14 +27,14 @@
         <activity android:name="com.eventr.app.events.GroupDetailActivity"></activity>
         <activity
             android:name="com.eventr.app.events.EventDetailActivity"
-            android:parentActivityName="com.eventr.app.eventr.com.eventr.app.android.MainActivity"
+            android:parentActivityName="com.eventr.app.events.MainActivity"
             android:launchMode="singleTop">
         </activity>
         <activity
             android:name="com.eventr.app.events.EventGroupsActivity"
-            android:parentActivityName="com.eventr.app.eventr.com.eventr.app.android.EventDetailActivity">
+            android:parentActivityName="com.eventr.app.events.EventDetailActivity">
         </activity>
-        <service android:name="com.eventr.app.events.utils.LocationHelper" />
+        <service android:name="com.eventr.app.events.utils.LocationHelper" />`
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>
