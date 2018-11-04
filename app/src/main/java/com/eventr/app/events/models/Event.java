@@ -17,6 +17,7 @@ import java.util.Date;
 public class Event implements Serializable {
     private String name, id, description, picUrl;
     private String location;
+    private String link;
     private Date date;
     private String rsvpStatus;
     private String pleaseNote;
@@ -59,12 +60,16 @@ public class Event implements Serializable {
     public String getLocationString() {
         try {
             JSONObject placeObj = new JSONObject(this.location);
-            String name = placeObj.getString("name");
+            String name = "";
+            if(placeObj.has("name")){
+                name = placeObj.getString("name")+ ", " ;
+            }
+
             JSONObject ct = placeObj.getJSONObject("city");
             String city = ct.getString("name");
             JSONObject countryJS = placeObj.getJSONObject("country");
             String country = countryJS.getString("name");
-            return name + ", " + city + ", " + country;
+            return  name + city + ", " + country;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -81,6 +86,12 @@ public class Event implements Serializable {
 
         try {
             this.name = event.getString("name");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            this.link = event.getString("url");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -135,7 +146,11 @@ public class Event implements Serializable {
             e.printStackTrace();
         }
         try {
-            this.pleaseNote = event.getString("pleaseNote");
+            if (event.has("pleaseNote")) {
+                this.pleaseNote = event.getString("pleaseNote");
+            }else{
+                this.pleaseNote ="";
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -177,4 +192,13 @@ public class Event implements Serializable {
     public void setPleaseNote(String pleaseNote) {
         this.pleaseNote = pleaseNote;
     }
+
+    public String getLink() {
+        return this.link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
 }

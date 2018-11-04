@@ -23,6 +23,7 @@ import com.eventr.app.events.R;
 import com.facebook.login.LoginManager;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -126,6 +127,29 @@ public class Utils {
         SimpleDateFormat outputFormat = new SimpleDateFormat("MMM\r\ndd", java.util.Locale.getDefault());
         try {
             return outputFormat.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String getSearchDate(Date date) {
+        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", java.util.Locale.getDefault());
+        try {
+            return outputFormat.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String getSearchDateTreeManth() {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, 3);
+        java.util.Date dt = cal.getTime();
+        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", java.util.Locale.getDefault());
+        try {
+            return outputFormat.format(dt);
         } catch (Exception e) {
             e.printStackTrace();
             return null;

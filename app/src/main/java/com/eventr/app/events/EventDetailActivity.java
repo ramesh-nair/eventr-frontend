@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -39,6 +40,7 @@ import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Suraj on 23/08/16.
@@ -58,6 +60,7 @@ public class EventDetailActivity extends AppCompatActivity {
     @BindView(R.id.floating_action) public FloatingActionButton floatingButton;
     @BindView(R.id.attending_count) public TextView attendingCount;
     @BindView(R.id.event_description) public TextView description;
+    @BindView(R.id.event_Link) public TextView link;
     @BindView(R.id.event_detail_pic) public NetworkImageView cover;
 
     private String rsvpStatus;
@@ -180,6 +183,7 @@ public class EventDetailActivity extends AppCompatActivity {
         startTime.setText(eventDetail.getTimeString());
         locationView.setText(eventDetail.getLocationString());
         attendingCount.setText(eventDetail.getPleaseNote());
+        link.setText(eventDetail.getLink());
     }
 
     private void startGroupsActivity() {
@@ -231,6 +235,15 @@ public class EventDetailActivity extends AppCompatActivity {
                 attendingDialogFragment.dismiss();
             }
         });
+    }
+
+    @OnClick(R.id.event_Link)
+    void openLink(){
+        if(link.getText().toString().trim().length()>0){
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(link.getText().toString()));
+            startActivity(i);
+        }
     }
 
     private void changeRsvpStatus() {

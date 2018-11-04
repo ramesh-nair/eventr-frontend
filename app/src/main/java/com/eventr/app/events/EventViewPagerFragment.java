@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -236,9 +238,17 @@ public class EventViewPagerFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... params) {
+
             PagedResponse<Events> page = null;
             try {
-                page = EventrRequestQueue.getInstance().getApi().searchEvents(new SearchEventsOperation().latlong(String.valueOf(latitude), String.valueOf(longitude)).sort("distance,asc"));
+                page = EventrRequestQueue.getInstance().getApi().searchEvents(new SearchEventsOperation().
+                        latlong(String.valueOf(latitude), String.valueOf(longitude))
+                        .radius(5000)
+                        .unit("km")
+                        .startDateTime(Utils.getSearchDate(new Date()))
+                        .endDateTime(Utils.getSearchDateTreeManth())
+                        .sort("date,asc")
+                        .pageSize(50));
                 return  page.getJsonPayload();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -260,11 +270,13 @@ public class EventViewPagerFragment extends Fragment {
                     if (tabPosition > 0) {
 
                     } else {
-                        JSONArray events = (json.getJSONObject("_embedded")).getJSONArray("events");
-                        for (int i = 0; i < events.length(); i++) {
-                            JSONObject eventObj = (JSONObject) events.get(i);
-                            Event item = new Event(eventObj, rsvpStates[tabPosition].toString(), false);
-                            items.add(item);
+                        if(json.has("_embedded")) {
+                            JSONArray events = (json.getJSONObject("_embedded")).getJSONArray("events");
+                            for (int i = 0; i < events.length(); i++) {
+                                JSONObject eventObj = (JSONObject) events.get(i);
+                                Event item = new Event(eventObj, rsvpStates[tabPosition].toString(), false);
+                                items.add(item);
+                            }
                         }
                     }
                 } catch (JSONException e) {
