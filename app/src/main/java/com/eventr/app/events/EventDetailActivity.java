@@ -246,6 +246,18 @@ public class EventDetailActivity extends AppCompatActivity {
         }
     }
 
+    @OnClick(R.id.event_location)
+    void onClickLocation(){
+        if(eventDetail.getLat() != null || eventDetail.getLng() != null) {
+            Uri gmmIntentUri = Uri.parse("geo:" + eventDetail.getLat() + "," + eventDetail.getLng());
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            if (mapIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(mapIntent);
+            }
+        }
+    }
+
     private void changeRsvpStatus() {
         boolean isInternetConnected = Utils.isInternetConnected(this);
         if (!isInternetConnected) {

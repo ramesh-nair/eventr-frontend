@@ -124,6 +124,7 @@ public class Utils {
     }
 
     public static String getDateAndMonth(Date date) {
+        if(date == null ) return "";
         SimpleDateFormat outputFormat = new SimpleDateFormat("MMM\r\ndd", java.util.Locale.getDefault());
         try {
             return outputFormat.format(date);

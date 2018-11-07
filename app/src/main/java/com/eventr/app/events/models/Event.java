@@ -21,6 +21,12 @@ public class Event implements Serializable {
     private Date date;
     private String rsvpStatus;
     private String pleaseNote;
+    private String lat;
+    private String lng;
+
+
+
+
 
     public Event() {
     }
@@ -138,6 +144,11 @@ public class Event implements Serializable {
                         JSONArray venues = embedded.getJSONArray("venues");
                         if(venues.length()>0){
                             this.location = venues.get(0).toString();
+
+                            if(venues.getJSONObject(0).has("location")){
+                                lat = venues.getJSONObject(0).getJSONObject("location").getString("latitude");
+                                lng = venues.getJSONObject(0).getJSONObject("location").getString("longitude");
+                            }
                         }
                     }
                 }
@@ -162,7 +173,9 @@ public class Event implements Serializable {
                     JSONObject dates = event.getJSONObject("dates");
                     if (dates.has("start")) {
                         JSONObject start = dates.getJSONObject("start");
-                        date = Utils.getDateFromString(start.getString("dateTime"));
+                        if (start.has("dateTime")) {
+                            date = Utils.getDateFromString(start.getString("dateTime"));
+                        }
                     }
                 }
             }
@@ -199,6 +212,23 @@ public class Event implements Serializable {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+
+    public String getLat() {
+        return this.lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLng() {
+        return this.lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
     }
 
 }

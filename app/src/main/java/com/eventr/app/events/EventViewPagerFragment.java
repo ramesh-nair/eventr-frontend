@@ -243,12 +243,12 @@ public class EventViewPagerFragment extends Fragment {
             try {
                 page = EventrRequestQueue.getInstance().getApi().searchEvents(new SearchEventsOperation().
                         latlong(String.valueOf(latitude), String.valueOf(longitude))
-                        .radius(5000)
+                        .radius(50)
                         .unit("km")
                         .startDateTime(Utils.getSearchDate(new Date()))
                         .endDateTime(Utils.getSearchDateTreeManth())
                         .sort("date,asc")
-                        .pageSize(50));
+                        .pageSize(100));
                 return  page.getJsonPayload();
             } catch (IOException e) {
                 e.printStackTrace();
